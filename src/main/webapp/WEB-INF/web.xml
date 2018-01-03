@@ -8,10 +8,20 @@
   	<servlet-name>Test</servlet-name>
   	<display-name>Test</display-name>
   	<description></description>
-  	<servlet-class>com.example.servlet.Test</servlet-class>
+  	<servlet-class>com.example.mysensor.Test</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Upload</servlet-name>
+  	<display-name>Upload</display-name>
+  	<description></description>
+  	<servlet-class>com.example.mysensor.Upload</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>Test</servlet-name>
   	<url-pattern>/Test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Upload</servlet-name>
+  	<url-pattern>/Upload</url-pattern>
   </servlet-mapping>
 </web-app>
