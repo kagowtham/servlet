@@ -46,13 +46,14 @@ public class Test extends HttpServlet {
 		        	 isEnters=true;
 		         }else if(recievedString.trim().equals("img")) {
 		        	    if(Upload.upload) {
+				       Upload.upload=false;
 		        	      response.setContentType("image/jpeg");  
 		        	      ServletOutputStream out;  
 		        	      out = response.getOutputStream(); 
 		        	      out.write(Upload.buffer);
 		        	      out.close();
 		        	  
-		        	      Upload.upload=false;
+		        	   
 		        	    }else {
 		        	    	return;
 		        	    }
