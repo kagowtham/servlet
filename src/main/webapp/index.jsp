@@ -1,100 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+ function func(){
+	 $.post("Login?usr="+document.f1.usr.value+"&pwd="+document.f1.pwd.value, function(data) {
+		 console.log(data);
+	        if(data=="false"){
+	        	alert("username is not matches with password");
+	        	
+	        }else{
+	        	
+	        	console.log("correct");
+	        	document.f1.submit();
+	        }
+	    });
+	
+ }
+</script>
+
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input {display:none;}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
+  h1 {
+    color : #000000;
+    text-align : center;
+    font-family: "SIMPSON";
+  }
+   form {
+    width: 300px;
+    margin: 0 auto;
 }
 </style>
-</head>
+
 <body>
-<script type="text/javascript">
-   function func(){
-	   var checkBox = document.getElementById("check");
-	   if (checkBox.checked == true){
-		   $.ajax({
-			     url: "<%=request.getContextPath()%>/Test?status=on",              
-			     type: "GET", 
-			     success: function(data){
-			        console.log(data);
-			       } 
-			     });
-	   } else {
-		   $.ajax({
-			     url: "<%=request.getContextPath()%>/Test?status=off",              
-			     type: "GET", 
-			     success: function(data){
-			        console.log(data);
-			       } 
-			     });
-	   }
-   }
-
-
-</script>
-<h2>Switch</h2>
-
-<label class="switch">
-  <input type="checkbox" id="check" onclick="func()">
-  <span class="slider round"></span>
-</label>
-<form action="Upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="image" />
-    <input type="submit" />
-</form>
+   <h1>Security Preemtion System</h1>
+   <form accept-charset=utf-8 name="f1" action="Image"  >
+      <div class="form-group">
+        <label>user name :</label>
+        <input name="usr" class="form-control"></input>
+      </div>
+      <div class="form-group">
+        <label>password :</label>
+        <input name="pwd" type="password" class="form-control"></input>
+      </div>
+      <div class="form-group">
+        <input type="button" value="register" onclick="location.href='register.jsp';" class="btn btn-primary"></input>
+        <input type="button" value="login" onclick="func()" class="btn btn-success"></input>
+      </div>
+   </form>
 
 </body>
 </html> 
