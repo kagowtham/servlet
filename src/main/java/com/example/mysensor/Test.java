@@ -73,7 +73,6 @@ public class Test extends HttpServlet {
 		        	 Status.isEnters.put(key, true);
 		        	 System.out.println("changed isEnter :"+Status.isEnters.get(key));
 		         }else if(recievedString.trim().equals("img")) {
-<<<<<<< HEAD
 		        	    if(Status.upload.containsKey(key)) {
 		        	      if(Status.upload.get(key)) {
 		        	       response.setContentType("image/jpeg");  
@@ -89,17 +88,6 @@ public class Test extends HttpServlet {
 		        	    	  System.out.println("img key not true");
 		        	    	return;
 		        	      }
-=======
-		        	    if(Upload.upload) {
-				       Upload.upload=false;
-		        	      response.setContentType("image/jpeg");  
-		        	      ServletOutputStream out;  
-		        	      out = response.getOutputStream(); 
-		        	      out.write(Upload.buffer);
-		        	      out.close();
-		        	  
-		        	   
->>>>>>> b8c188e88f6aebc1f66190ea5101c578d3bbe0df
 		        	    }else {
 		        	    	System.out.println("img key not found");
 		        	    	return;
