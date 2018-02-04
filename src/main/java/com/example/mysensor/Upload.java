@@ -44,7 +44,7 @@ public class Upload extends HttpServlet {
     	super.init();
     	MongoClientURI uri = new MongoClientURI(
     			"mongodb://db:db@mongodb/mydb");
-    	mongo = new MongoClient( uri);  
+    	mongo = new MongoClient(uri);  
     	   database = mongo.getDatabase("mydb"); 
     	   
     }
@@ -58,7 +58,7 @@ public class Upload extends HttpServlet {
 		  buffer = new byte[fileContent.available()];
 		  fileContent.read(buffer);
 	      Status.upload.put(request.getParameter("key"), true);
-	      //System.out.println(request.getParameter("key"));
+	      
 	      String encoded = Base64.getEncoder().encodeToString(buffer);
 	      Status.buffer.put(request.getParameter("key"), encoded);
 	      System.out.println("file uploaded \n \n \n "+buffer.length);

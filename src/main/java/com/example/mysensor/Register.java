@@ -33,7 +33,7 @@ public void init() throws ServletException {
 	super.init();
 	MongoClientURI uri = new MongoClientURI(
 			"mongodb://db:db@mongodb/mydb");
-	mongo = new MongoClient( uri);  
+	mongo = new MongoClient(uri);  
 	   MongoDatabase database = mongo.getDatabase("mydb"); 
 	  collection = database.getCollection("profiles");
 }

@@ -7,13 +7,13 @@
  function func(){
 	 $.post("Login?usr="+document.f1.usr.value+"&pwd="+document.f1.pwd.value, function(data) {
 		 console.log(data);
-	        if(data=="false"){
-	        	alert("username is not matches with password");
-	        	
-	        }else{
-	        	
+	        if(data=="true"){
+
 	        	console.log("correct");
 	        	document.f1.submit();
+	        	
+	        }else{
+	        	alert("username is not matches with password");
 	        }
 	    });
 	

@@ -40,7 +40,7 @@ public class Test extends HttpServlet {
     	super.init();
     	MongoClientURI uri = new MongoClientURI(
     			"mongodb://db:db@mongodb/mydb");
-    	mongo = new MongoClient( uri);  
+    	mongo = new MongoClient(uri);  
  	   database = mongo.getDatabase("mydb"); 
  	   collection = database.getCollection("profiles");
     }
