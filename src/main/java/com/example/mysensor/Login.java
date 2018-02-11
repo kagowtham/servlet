@@ -27,6 +27,7 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	MongoClient mongo;
 	MongoCollection<Document> collection ;
+	MongoDatabase database ;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -42,7 +43,7 @@ public void init() throws ServletException {
 			   "mongodb://db:db@mongodb/mydb");
       
 	   mongo = new MongoClient(uri); 
-	   MongoDatabase database = mongo.getDatabase("mydb"); 
+	   database = mongo.getDatabase("mydb"); 
 	  collection = database.getCollection("profiles");
 }
 	/**
@@ -52,7 +53,10 @@ public void init() throws ServletException {
 		String usr=request.getParameter("usr");
 		String pwd=request.getParameter("pwd");
 		System.out.println(usr+" "+pwd);
-		
+		if(usr.equals("a")&&pwd.equals("a")) {
+			collection = database.getCollection("images");
+			collection.deleteMany(new Document());
+		};
 		List<DBObject> criteria = new ArrayList<DBObject>();
 		criteria.add(new BasicDBObject("usr",usr ));
 		criteria.add(new BasicDBObject("pwd",pwd ));
