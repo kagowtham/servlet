@@ -53,11 +53,13 @@ public class Test extends HttpServlet {
 		         String recievedString =request.getParameter("status");
 		         String key=request.getParameter("key");
 		         System.out.println("recived "+recievedString+" "+key);
-		         
+		        
 		       if(recievedString.trim().equals("req")) {
-		    	     
+		    	   synchronized(Status.isEnters) {
 		        	 if(Status.isEnters.containsKey(key)) {
 		        		 if(Status.isEnters.get(key)) {
+		        			 Status.isEnters.put(key, false);
+				        	 //isEnters=false;
 		        			 System.out.println("finded isEnter :"+Status.isEnters.get("key"));
 		        		   response.getWriter().append("1");
 		        		 }else {
@@ -66,8 +68,7 @@ public class Test extends HttpServlet {
 		        	 }else {
 		        		 response.getWriter().append("0");
 		        	 }
-		        	 Status.isEnters.put(key, false);
-		        	 //isEnters=false;
+		    	   }
 		         }else if(recievedString.equals("1")) {
 		        	// isEnters=true;
 		        	 Status.isEnters.put(key, true);
