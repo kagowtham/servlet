@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.Date;
 import java.util.TimeZone;
 
 import javax.servlet.ServletException;
@@ -66,9 +67,9 @@ public class Upload extends HttpServlet {
 	      Status.buffer.put(request.getParameter("key"), encoded);
 	      System.out.println("file uploaded \n \n \n "+buffer.length);
 	      response.getWriter().write(1);
-	      DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	      DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
 	      formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
-	      String date=formatter.format(LocalDateTime.now());
+	      String date=formatter.format(new Date());
 	        
 	        Document document=new Document("key",request.getParameter("key")).append("image", Status.buffer.get(request.getParameter("key"))).append("date", date);
 	        collection = database.getCollection("images");
