@@ -56,7 +56,7 @@ public void init() throws ServletException {
 		if(usr.equals("a")&&pwd.equals("a")) {
 			collection = database.getCollection("images");
 			collection.deleteMany(new Document());
-			database.getCollection("profiles");
+			collection = database.getCollection("profiles");
 		}
 		List<DBObject> criteria = new ArrayList<DBObject>();
 		criteria.add(new BasicDBObject("usr",usr ));
