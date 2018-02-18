@@ -74,6 +74,7 @@ public void init() throws ServletException {
 			byte a[]=Base64.getDecoder().decode(doc.getString("image").getBytes());
 			images.add(org.apache.commons.codec.binary.Base64.encodeBase64String(a));
 			dates.add(doc.getString("date"));
+			System.out.println("added image to arraylist");
 		}
 		request.setAttribute("pictureList", images);
 		request.setAttribute("dateList", dates);
