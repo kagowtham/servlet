@@ -26,10 +26,23 @@
     </style>
     <script>
        var imageSrc;
-       function image(src){
+       var dateDelete;
+       function startRefresh() {
+    	   if(!$('#myModal').is(':visible')){
+    	     $.get('', function(data) {
+    	    	 console.log("refresh called");
+    	        $(document.body).html(data);    
+    	     });
+    	   }
+    	}
+    	$(function() {
+    	    setTimeout(startRefresh,7000);
+    	});
+       function image(src,date){
         $("#myModal").modal();
         $("#myimage").attr("src",src);
         imageSrc=src;
+        dateDelete=date;
        }
        function save(){
     	   var link = document.createElement('a');
@@ -37,6 +50,16 @@
            link.download = 'Image.jpg';
            document.body.appendChild(link);
            link.click();     
+       }
+       function delete1(){
+    	        $.post("Delete?date="+dateDelete, function(data) {
+    			    console.log(data);
+    		        if(data=="true"){
+    		        	$('#myModal').modal('toggle');
+    		        }else{
+    		        	alert(" not deleted");
+    		        }
+    		    });
        }
 </script>
 </head>
@@ -74,7 +97,7 @@
             <div class="col-lg-3">
             <center class="cen">
               <div class="thumbnail">
-              <img id="myBtn"  onclick="image('data:image/jpg;base64,${picture}');" src="data:image/jpg;base64,${picture}"/>
+              <img id="myBtn"  onclick="image('data:image/jpg;base64,${picture}','${dateList[status.index]}');" src="data:image/jpg;base64,${picture}"/>
                <div class="caption">
               ${dateList[status.index]}
               </div>
@@ -94,6 +117,7 @@
            <img id="myimage" class="img-responsive"/>
            </div>
            <div class="modal-footer">
+           <button type="button" onclick="delete1()" class="btn btn-default" >Delete</button>
            <button type="button" onclick="save()" class="btn btn-default" >Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
