@@ -53,8 +53,9 @@ public void init() throws ServletException {
 	super.init();
 	MongoClientURI uri = new MongoClientURI(
 			"mongodb://db:db@mongodb/mydb");
+	    mongo = new MongoClient(uri); 
 	   database = mongo.getDatabase("mydb"); 
-	   mongo = new MongoClient(uri);  
+	   
 }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
