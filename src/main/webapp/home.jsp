@@ -72,7 +72,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <label class="navbar-brand" href="#">security preemtion system</label>
+      <label class="navbar-brand" href="#">Intruder detection security system</label>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">

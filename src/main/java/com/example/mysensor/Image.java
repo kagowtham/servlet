@@ -1,11 +1,21 @@
 package com.example.mysensor;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +53,6 @@ public void init() throws ServletException {
 	super.init();
 	MongoClientURI uri = new MongoClientURI(
 			"mongodb://db:db@mongodb/mydb");
-	mongo = new MongoClient(uri);  
 	   database = mongo.getDatabase("mydb"); 
 	   
 }
@@ -72,9 +81,30 @@ public void init() throws ServletException {
 		while(iterator1.hasNext()) {
 			Document doc=iterator1.next();
 			byte a[]=Base64.getDecoder().decode(doc.getString("image").getBytes());
-			images.add(org.apache.commons.codec.binary.Base64.encodeBase64String(a));
+			 InputStream in = new ByteArrayInputStream(a); 
+			 BufferedImage image = ImageIO.read(in);
+			 ByteArrayOutputStream os = new ByteArrayOutputStream();
+			 Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+			    ImageWriter writer = (ImageWriter) writers.next();
+
+			    ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+			    writer.setOutput(ios);
+
+			    ImageWriteParam param = writer.getDefaultWriteParam();
+
+			    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+			    param.setCompressionQuality(0.4f);  // Change the quality value you prefer
+			    writer.write(null, new IIOImage(image, null, null), param);
+                
+			    os.close();
+			    ios.close();
+			    writer.dispose();
+			   
+			 
+			 
+			images.add(org.apache.commons.codec.binary.Base64.encodeBase64String(os.toByteArray()));
 			dates.add(doc.getString("date"));
-			System.out.println("added image to arraylist");
+			
 		}
 		request.setAttribute("pictureList", images);
 		request.setAttribute("dateList", dates);
