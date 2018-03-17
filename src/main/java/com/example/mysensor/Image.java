@@ -53,7 +53,7 @@ public void init() throws ServletException {
 	super.init();
 	MongoClientURI uri = new MongoClientURI(
 			"mongodb://db:db@mongodb/mydb");
-	    mongo = new MongoClient(uri); 
+	mongo = new MongoClient(uri);  
 	   database = mongo.getDatabase("mydb"); 
 	   
 }
@@ -82,6 +82,7 @@ public void init() throws ServletException {
 		while(iterator1.hasNext()) {
 			Document doc=iterator1.next();
 			byte a[]=Base64.getDecoder().decode(doc.getString("image").getBytes());
+			try {
 			 InputStream in = new ByteArrayInputStream(a); 
 			 BufferedImage image = ImageIO.read(in);
 			 ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -100,10 +101,13 @@ public void init() throws ServletException {
 			    os.close();
 			    ios.close();
 			    writer.dispose();
-			   
+			
 			 
 			 
-			images.add(org.apache.commons.codec.binary.Base64.encodeBase64String(os.toByteArray()));
+			  images.add(org.apache.commons.codec.binary.Base64.encodeBase64String(os.toByteArray()));
+			}catch(Exception e) {
+				images.add(org.apache.commons.codec.binary.Base64.encodeBase64String(a));
+			}
 			dates.add(doc.getString("date"));
 			
 		}
