@@ -33,7 +33,7 @@ public class Delete extends HttpServlet {
     	super.init();
     	MongoClientURI uri = new MongoClientURI(
     			"mongodb://db:db@mongodb/mydb");
-    	mongo = new MongoClient();  
+    	mongo = new MongoClient(uri);  
     	   MongoDatabase database = mongo.getDatabase("mydb"); 
     	  collection = database.getCollection("images");
     }
