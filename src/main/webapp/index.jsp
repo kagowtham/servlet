@@ -5,7 +5,7 @@
 <head>
 <script type="text/javascript">
  function func(){
-	 $.post("Login?usr="+document.f1.usr.value+"&pwd="+document.f1.pwd.value, function(data) {
+	 $.get("Login", {'usr':document.f1.usr.value,'pwd':document.f1.pwd.value},function(data) {
 		 console.log(data);
 	        if(data=="true"){
 

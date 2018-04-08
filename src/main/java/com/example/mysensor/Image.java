@@ -83,6 +83,7 @@ public void init() throws ServletException {
 			Document doc=iterator1.next();
 			byte a[]=Base64.getDecoder().decode(doc.getString("image").getBytes());
 			try {
+			  
 			 InputStream in = new ByteArrayInputStream(a); 
 			 BufferedImage image = ImageIO.read(in);
 			 ByteArrayOutputStream os = new ByteArrayOutputStream();

@@ -23,6 +23,36 @@
     .cen{
       margin-bottom: 5px;
     }
+    
+   
+div.thumbnail:hover img{ 
+    opacity:0.6;
+}
+div.thumbnail:hover input {
+    display: block;
+}
+div.thumbnail input {
+    position:absolute;
+    display:none;
+}
+div.thumbnail input.view {
+    top: 40%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+div.thumbnail input.save {
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+div.thumbnail input.delete {
+    top: 60%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
     </style>
     <script>
        var imageSrc;
@@ -36,31 +66,36 @@
     	   }
     	}
     	$(function() {
-    	    setTimeout(startRefresh,7000);
+    	    setTimeout(startRefresh,1000);
     	});
        function image(src,date){
-        $("#myModal").modal();
-        $("#myimage").attr("src",src);
+        //$("#myModal").modal();
+        //$("#myimage").attr("src",src);
         imageSrc=src;
         dateDelete=date;
        }
-       function save(){
+       function save(src,date){
     	   var link = document.createElement('a');
-           link.href = imageSrc;
-           link.download = 'Image.jpg';
+           link.href = src;
+           link.download = date+'.jpg';
            document.body.appendChild(link);
            link.click();     
        }
-       function delete1(){
-    	        $.post("Delete?date="+dateDelete, function(data) {
+       function delete1(date){
+    	        $.post("Delete?date="+date, function(data) {
     			    console.log(data);
     		        if(data=="true"){
-    		        	$('#myModal').modal('toggle');
+    		        	alert("deleted");
     		        }else{
     		        	alert(" not deleted");
     		        }
     		    });
        }
+       function view(src){
+    	   var myWindow = window.open("", "Image", "_blank", "toolbar=no,scrollbars=no,resizable=yes");
+    	   myWindow.document.write("<img width='500dp' height='500dp'src=" + src + ">");
+
+    	   }
 </script>
 </head>
 <body>
@@ -97,34 +132,17 @@
             <div class="col-lg-3">
             <center class="cen">
               <div class="thumbnail">
-              <img id="myBtn"  onclick="image('data:image/jpg;base64,${picture}','${dateList[status.index]}');" src="data:image/jpg;base64,${picture}"/>
+                 <img id="myBtn" src="data:image/jpg;base64,${picture}" />
+                  <input class="view btn btn-primary" type="button" value="View" onclick="view('data:image/jpg;base64,${picture}')" />
+                  <input class="save btn btn-primary" type="button" value="Save" onclick="save('data:image/jpg;base64,${picture}','${dateList[status.index]}');" />
+                  <input class="delete btn btn-primary" type="button" value="Delete" onclick="delete1('${dateList[status.index]}')"/>
                <div class="caption">
               ${dateList[status.index]}
               </div>
               </div>
              </center> 
             </div>
-            <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Image</h4>
-           </div>
-          <div class="modal-body">
-           <img id="myimage" class="img-responsive"/>
-           </div>
-           <div class="modal-footer">
-           <button type="button" onclick="delete1()" class="btn btn-default" >Delete</button>
-           <button type="button" onclick="save()" class="btn btn-default" >Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+           
     </c:forEach>
      </div>
    </div>
