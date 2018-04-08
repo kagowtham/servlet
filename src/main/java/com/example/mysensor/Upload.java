@@ -47,7 +47,7 @@ public class Upload extends HttpServlet {
     	// TODO Auto-generated method stub
     	super.init();
     	MongoClientURI uri = new MongoClientURI(
-    			"mongodb://db:db@mongodb/mydb");
+    			"mongodb+srv://mongodb-stitch-myapp-ykcyz:kagowtham@cluster0-qwbhs.mongodb.net/test");
     	mongo = new MongoClient(uri);  
     	   database = mongo.getDatabase("mydb"); 
     	   
